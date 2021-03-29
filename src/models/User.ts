@@ -36,4 +36,18 @@ export class User {
     handlers.push(callback);
     this.events[eventName] = handlers;
   }
+
+  // Trigger an event from the callback array. If no callbacks yet ie. undefined
+  // then return early
+  trigger(eventName: string): void {
+    const handlers = this.events[eventName];
+
+    if (!handlers || handlers.length === 0) {
+      return;
+    }
+
+    handlers.forEach((callback) => {
+      callback();
+    });
+  }
 }
