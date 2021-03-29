@@ -6,7 +6,14 @@ interface UserProps {
   age?: number;
 }
 
+// Setting up type alias for function for easier reading
+// Function with no arguments and no return value
+type Callback = () => void;
 export class User {
+  // [key: string] indicates that key names or properties are not known beforehand
+  // but they will be strings
+  events: { [key: string]: Callback[] } = {};
+
   constructor(private data: UserProps) {}
 
   // Get User properties name or age
@@ -18,5 +25,15 @@ export class User {
   // properties from object to target object. Properties are overwritten
   set(update: UserProps): void {
     Object.assign(this.data, update);
+  }
+
+  // Adds event listener to User
+  // Takes two arguments: name of event to listen for and callback function to run
+  // this.events[eventName] is either array of callbacks  or undefined. In case
+  // undefined it is set to be an empty array []
+  on(eventName: string, callback: Callback): void {
+    const handlers = this.events[eventName] || [];
+    handlers.push(callback);
+    this.events[eventName] = handlers;
   }
 }
