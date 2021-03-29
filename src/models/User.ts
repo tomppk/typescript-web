@@ -63,4 +63,18 @@ export class User {
         this.set(response.data);
       });
   }
+
+  // If there already exists a user with this id then update that user with put
+  // otherwise post a new user to backend database
+  save(): void {
+    const id = this.get('id');
+
+    if (id) {
+      // put (url, new data)
+      axios.put(`http://localhost:3000/users/${id}`, this.data);
+    } else {
+      // post (url, new data)
+      axios.post('http://localhost:3000/users', this.data);
+    }
+  }
 }

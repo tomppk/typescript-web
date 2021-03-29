@@ -1,14 +1,20 @@
 import axios from 'axios';
-// import { User } from './models/User';
+import { User } from './models/User';
 
-axios.post('http://localhost:3000/users', {
-  name: 'myname',
-  age: 20,
-});
+// axios.post('http://localhost:3000/users', {
+//   name: 'myname',
+//   age: 20,
+// });
 
-axios.get('http://localhost:3000/users/1');
+// axios.get('http://localhost:3000/users/1');
 
-// const user = new User({ name: 'myname', age: 20 });
+const user = new User({ id: 1 });
+
+user.set({ name: 'STEVE', age: 40 });
+user.save();
+
+const userTwo = new User({ name: 'Bobby', age: 60 });
+userTwo.save();
 
 // console.log(user.get('name'));
 // console.log(user.get('age'));
