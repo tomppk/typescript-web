@@ -1,3 +1,5 @@
+import axios, { AxiosResponse } from 'axios';
+
 // Extract UserProps object from constructor. Better to have separate interface
 // than defining the object in one line on constructor.
 // Question mark ? after property name makes a property optional, not required
@@ -17,7 +19,7 @@ export class User {
 
   constructor(private data: UserProps) {}
 
-  // Get User properties name or age
+  // Get User properties name, age or id
   get(propName: string): number | string {
     return this.data[propName];
   }
@@ -50,5 +52,15 @@ export class User {
     handlers.forEach((callback) => {
       callback();
     });
+  }
+
+  // Make network get request to backend to fetch user data using id of
+  // current User instance. Update all properties of current user instance
+  fetch(): void {
+    axios
+      .get(`http://localhost:3000/users/${this.get('id')}`)
+      .then((response: AxiosResponse): void => {
+        this.set(response.data);
+      });
   }
 }
