@@ -1,3 +1,4 @@
 # Parcel build folders
 .cache
 dist
+node_modules

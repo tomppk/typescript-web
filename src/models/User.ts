@@ -2,6 +2,7 @@
 // than defining the object in one line on constructor.
 // Question mark ? after property name makes a property optional, not required
 interface UserProps {
+  id?: number;
   name?: string;
   age?: number;
 }

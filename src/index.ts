@@ -1,6 +1,14 @@
-import { User } from './models/User';
+import axios from 'axios';
+// import { User } from './models/User';
 
-const user = new User({ name: 'myname', age: 20 });
+axios.post('http://localhost:3000/users', {
+  name: 'myname',
+  age: 20,
+});
+
+axios.get('http://localhost:3000/users/1');
+
+// const user = new User({ name: 'myname', age: 20 });
 
 // console.log(user.get('name'));
 // console.log(user.get('age'));
@@ -13,16 +21,16 @@ const user = new User({ name: 'myname', age: 20 });
 
 // console.log(user.get('name'));
 
-user.on('change', () => {
-  console.log('change #1');
-});
-user.on('change', () => {
-  console.log('change #2');
-});
-user.on('save', () => {
-  console.log('save was triggered');
-});
+// user.on('change', () => {
+//   console.log('change #1');
+// });
+// user.on('change', () => {
+//   console.log('change #2');
+// });
+// user.on('save', () => {
+//   console.log('save was triggered');
+// });
 
-user.trigger('change');
-user.trigger('save');
-user.trigger('random');
+// user.trigger('change');
+// user.trigger('save');
+// user.trigger('random');
