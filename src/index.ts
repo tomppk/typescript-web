@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { User } from './models/User';
 
+const user = new User({ name: 'new record', age: 0 });
+
+user.events.on('change', () => {
+  console.log('change!');
+});
+
+user.events.trigger('change');
+
 // axios.post('http://localhost:3000/users', {
 //   name: 'myname',
 //   age: 20,
@@ -8,13 +16,13 @@ import { User } from './models/User';
 
 // axios.get('http://localhost:3000/users/1');
 
-const user = new User({ id: 1 });
+// const user = new User({ id: 1 });
 
-user.set({ name: 'STEVE', age: 40 });
-user.save();
+// user.set({ name: 'STEVE', age: 40 });
+// user.save();
 
-const userTwo = new User({ name: 'Bobby', age: 60 });
-userTwo.save();
+// const userTwo = new User({ name: 'Bobby', age: 60 });
+// userTwo.save();
 
 // console.log(user.get('name'));
 // console.log(user.get('age'));
