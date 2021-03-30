@@ -1,7 +1,11 @@
 import axios, { AxiosPromise } from 'axios';
-import { UserProps } from './User';
 
-export class Sync {
+interface HasId {
+  id?: number;
+}
+// Tell Typescript that whatever the type T is it will have an id: number
+// property. Type constraint.
+export class Sync<T extends HasId> {
   // http://localhost:3000/users
   constructor(public rootUrl: string) {}
 
@@ -18,7 +22,7 @@ export class Sync {
   // Return AxiosPromise (same as regular Promise but used with axios) so we get
   // back an object we can use to determine whether the save to backend was
   // successful
-  save(data: UserProps): AxiosPromise {
+  save(data: T): AxiosPromise {
     const { id } = data;
 
     if (id) {
