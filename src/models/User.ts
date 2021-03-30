@@ -1,5 +1,6 @@
 import { Eventing } from './Eventing';
 import { Sync } from './Sync';
+import { Attributes } from './Attributes';
 
 // Extract UserProps object from constructor. Better to have separate interface
 // than defining the object in one line on constructor.
@@ -11,20 +12,16 @@ export interface UserProps {
 }
 
 const rootUrl = 'http://localhost:3000/users';
+
+// Use different submodules to provide functionality for User class.
+// Initialize attributes property in constructor so can call
+// new User({name: 'afasf'})
 export class User {
   public events: Eventing = new Eventing();
   public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
+  public attributes: Attributes<UserProps>;
 
-  constructor(private data: UserProps) {}
-
-  // Get User properties name, age or id
-  get(propName: string): number | string {
-    return this.data[propName];
-  }
-
-  // Set UserProps with Object.assign(target, copyFrom). Copy object
-  // properties from object to target object. Properties are overwritten
-  set(update: UserProps): void {
-    Object.assign(this.data, update);
+  constructor(attrs: UserProps) {
+    this.attributes = new Attributes<UserProps>(attrs);
   }
 }
