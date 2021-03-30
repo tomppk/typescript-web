@@ -11,15 +11,15 @@ export class Eventing {
   // Takes two arguments: name of event to listen for and callback function to run
   // this.events[eventName] is either array of callbacks  or undefined. In case
   // undefined it is set to be an empty array []
-  on(eventName: string, callback: Callback): void {
+  on = (eventName: string, callback: Callback): void => {
     const handlers = this.events[eventName] || [];
     handlers.push(callback);
     this.events[eventName] = handlers;
-  }
+  };
 
   // Trigger an event from the callback array. If no callbacks yet ie. undefined
   // then return early
-  trigger(eventName: string): void {
+  trigger = (eventName: string): void => {
     const handlers = this.events[eventName];
 
     if (!handlers || handlers.length === 0) {
@@ -29,5 +29,5 @@ export class Eventing {
     handlers.forEach((callback) => {
       callback();
     });
-  }
+  };
 }

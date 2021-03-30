@@ -24,4 +24,22 @@ export class User {
   constructor(attrs: UserProps) {
     this.attributes = new Attributes<UserProps>(attrs);
   }
+
+  // Implement pass-through methods with get keyword
+  // Get accessor. Not calling a function but returning a
+  // reference to Eventing class on() method.
+  // Can be called as function also user.on('change')
+  // This invokes the on() method on Eventing class not
+  // the one here in User class
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
 }
