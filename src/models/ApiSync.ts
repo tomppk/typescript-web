@@ -5,7 +5,7 @@ interface HasId {
 }
 // Tell Typescript that whatever the type T is it will have an id: number
 // property. Type constraint.
-export class Sync<T extends HasId> {
+export class ApiSync<T extends HasId> {
   // http://localhost:3000/users
   constructor(public rootUrl: string) {}
 
