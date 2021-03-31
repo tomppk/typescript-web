@@ -32,17 +32,31 @@ export class Model<T extends HasId> {
   // Can be called as function also user.on('change')
   // This invokes the on() method on Eventing class not
   // the one here in User class
-  get on() {
-    return this.events.on;
-  }
 
-  get trigger() {
-    return this.events.trigger;
-  }
+  // get on() {
+  //   return this.events.on;
+  // }
 
-  get get() {
-    return this.attributes.get;
-  }
+  // get trigger() {
+  //   return this.events.trigger;
+  // }
+
+  // get get() {
+  //   return this.attributes.get;
+  // }
+
+  // Instead of get keyword, we use class properties and
+  // assign reference to function to them.
+  // Can only be used if events, attributes are defined
+  // as constructor arguments, not inside constructor or
+  // class properties.
+  // If defined inside constructor these class properties
+  // below will be initialized first, before events and
+  // attributes exists. So eg. this.events will refer to
+  // undefined.
+  on = this.events.on;
+  trigger = this.events.trigger;
+  get = this.attributes.get;
 
   // Update user properties. Invokes Attributes class set() method
   // Then invokes Eventing class trigger method to notify that User
