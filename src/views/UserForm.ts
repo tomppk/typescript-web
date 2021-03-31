@@ -1,9 +1,12 @@
+import { User } from '../models/User';
+
 // Element is a reference to any HTML element
 // When creating new instance of UserForm we pass in
 // reference to parent element where we want to render
-// the html form
+// the html form.
+// Take in model of User class
 export class UserForm {
-  constructor(public parent: Element) {}
+  constructor(public parent: Element, public model: User) {}
 
   // Connects the event we want to watch for and function to run for that event.
   // event we want to listen for and element we are adding the event listener.
@@ -26,10 +29,14 @@ export class UserForm {
   }
 
   // Returns string of HTML we want to render
+  // Use model property's ie. User class method get() to get 'name' property
+  // of User
   template(): string {
     return `
         <div>
             <h1>User Form</h1>
+            <div>User name: ${this.model.get('name')}</div>
+            <div>User age: ${this.model.get('age')}</div>
             <input />
             <button>Click Me</button>
         </div>
