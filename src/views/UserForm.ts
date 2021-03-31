@@ -6,7 +6,18 @@ import { User } from '../models/User';
 // the html form.
 // Take in model of User class
 export class UserForm {
-  constructor(public parent: Element, public model: User) {}
+  constructor(public parent: Element, public model: User) {
+    this.bindModel();
+  }
+
+  // Adds event listener to User model that listens for
+  // 'change' event and calls this.render() when there is
+  // change in User model
+  bindModel(): void {
+    this.model.on('change', () => {
+      this.render();
+    });
+  }
 
   // Connects the event we want to watch for and function to run for that event.
   // event we want to listen for and element we are adding the event listener.
@@ -14,19 +25,16 @@ export class UserForm {
   // does not return anything
   eventsMap(): { [key: string]: () => void } {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onHeaderHover,
+      'click:.set-age': this.onSetAgeClick,
     };
   }
 
-  onHeaderHover(): void {
-    console.log('h1 was hovered over');
-  }
-
   // Function we want to run when event handler is triggered
-  onButtonClick(): void {
-    console.log('hi there');
-  }
+  // Call User class setRandomAge() method
+  // Defined as arrow function to refer to User instance of model
+  onSetAgeClick = (): void => {
+    this.model.setRandomAge();
+  };
 
   // Returns string of HTML we want to render
   // Use model property's ie. User class method get() to get 'name' property
@@ -39,6 +47,7 @@ export class UserForm {
             <div>User age: ${this.model.get('age')}</div>
             <input />
             <button>Click Me</button>
+            <button class="set-age">Set Random Age</button>
         </div>
         `;
   }
@@ -74,7 +83,9 @@ export class UserForm {
   // bindEvents() looks through templateElement HTML content if there is matching
   // element name in there and eventsMap. Then it adds event listener to that
   // element and a callback to run as defined in eventsMap
+  // Before each re-render empty the parent elements html content.
   render(): void {
+    this.parent.innerHTML = '';
     const templateElement = document.createElement('template');
     templateElement.innerHTML = this.template();
 
