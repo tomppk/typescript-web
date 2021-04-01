@@ -83,6 +83,10 @@ export abstract class View<T extends Model<K>, K> {
     }
   }
 
+  // Default implementation of view nesting that child classes implement
+  // if needed
+  onRender(): void {}
+
   // <template> elements can be used to turn a string into
   // HTML element
   // append the HTML content of template element into parent element
@@ -100,6 +104,8 @@ export abstract class View<T extends Model<K>, K> {
 
     this.bindEvents(templateElement.content);
     this.mapRegions(templateElement.content);
+
+    this.onRender();
 
     this.parent.append(templateElement.content);
   }

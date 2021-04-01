@@ -24,6 +24,16 @@
       "name": "New saved User",
       "age": 82,
       "id": 5
+    },
+    {
+      "name": "sally",
+      "age": 7,
+      "id": 6
+    },
+    {
+      "name": "superman",
+      "age": 62,
+      "id": 7
     }
   ]
 }
