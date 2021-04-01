@@ -33,12 +33,15 @@ export class UserForm {
   // Select <input> tag from parent DOM element.
   // Access input property value which is the text inside input field
   // Use User model set() method to set new name as the input
+  // Set type guard to check that input is not null
   onSetNameClick = (): void => {
     const input = this.parent.querySelector('input');
 
-    const name = input.value;
+    if (input) {
+      const name = input.value;
 
-    this.model.set({ name });
+      this.model.set({ name });
+    }
   };
 
   // Function we want to run when event handler is triggered
