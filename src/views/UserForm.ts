@@ -1,6 +1,7 @@
+import { User, UserProps } from '../models/User';
 import { View } from './View';
 
-export class UserForm extends View {
+export class UserForm extends View<User, UserProps> {
   // Connects the event we want to watch for and function to run for that event.
   // event we want to listen for and element we are adding the event listener.
   // Returns an object with a key of type string and value of type function that

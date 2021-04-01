@@ -1,13 +1,17 @@
-import { User } from '../models/User';
+import { Model } from '../models/Model';
 
 // Element is a reference to any HTML element
 // When creating new instance of UserForm we pass in
 // reference to parent element where we want to render
 // the html form.
 // Take in model of User class
-
-export abstract class View {
-  constructor(public parent: Element, public model: User) {
+// T is going to have all the same properties as type Model with type K loaded into it
+// View defines two types T, and for the Model class to use K
+// We pass in T the type of Model we want to use, and type K a set of attributes
+// we want our Model to have (id, name age etc.)
+// eg. View(User extends Model<UserProps>, UserProps) -> View(User, UserProps)
+export abstract class View<T extends Model<K>, K> {
+  constructor(public parent: Element, public model: T) {
     this.bindModel();
   }
 
