@@ -11,6 +11,10 @@ import { Model } from '../models/Model';
 // we want our Model to have (id, name age etc.)
 // eg. View(User extends Model<UserProps>, UserProps) -> View(User, UserProps)
 export abstract class View<T extends Model<K>, K> {
+  // Regions class property. Is an object with values that contain
+  // an HTML Element
+  regions: { [key: string]: Element } = {};
+
   constructor(public parent: Element, public model: T) {
     this.bindModel();
   }
@@ -18,6 +22,14 @@ export abstract class View<T extends Model<K>, K> {
   // Abstract function that child classes must implement
   // Creates HTML string template
   abstract template(): string;
+
+  // Default implementation of regionsMap that child elements can override
+  // Can return a region to bind other html elements into
+  // Key is region name and value is reference to html element class or id
+  // eg. UserForm: .user-form
+  regionsMap(): { [key: string]: string } {
+    return {};
+  }
 
   // Default eventsMap method that child classes can overwrite
   // returns an empty object by default
@@ -56,6 +68,21 @@ export abstract class View<T extends Model<K>, K> {
     }
   }
 
+  // Iterate through all the regions in regionsMap. Find regions that
+  // match value of regionsMap key and add them into this.regions property
+  mapRegions(fragment: DocumentFragment): void {
+    const regionsMap = this.regionsMap();
+
+    for (let key in regionsMap) {
+      const selector = regionsMap[key];
+      const element = fragment.querySelector(selector);
+
+      if (element) {
+        this.regions[key] = element;
+      }
+    }
+  }
+
   // <template> elements can be used to turn a string into
   // HTML element
   // append the HTML content of template element into parent element
@@ -72,6 +99,7 @@ export abstract class View<T extends Model<K>, K> {
     templateElement.innerHTML = this.template();
 
     this.bindEvents(templateElement.content);
+    this.mapRegions(templateElement.content);
 
     this.parent.append(templateElement.content);
   }
