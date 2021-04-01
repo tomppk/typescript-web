@@ -9,6 +9,21 @@
       "name": "Bobby",
       "age": 60,
       "id": 2
+    },
+    {
+      "name": "granpa",
+      "age": 200,
+      "id": 3
+    },
+    {
+      "name": "Billie",
+      "age": 20,
+      "id": 4
+    },
+    {
+      "name": "New saved User",
+      "age": 82,
+      "id": 5
     }
   ]
 }
