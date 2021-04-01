@@ -15,8 +15,15 @@ export abstract class View<T extends Model<K>, K> {
     this.bindModel();
   }
 
-  abstract eventsMap(): { [key: string]: () => void };
+  // Abstract function that child classes must implement
+  // Creates HTML string template
   abstract template(): string;
+
+  // Default eventsMap method that child classes can overwrite
+  // returns an empty object by default
+  eventsMap(): { [key: string]: () => void } {
+    return {};
+  }
 
   // Adds event listener to User model that listens for
   // 'change' event and calls this.render() when there is
